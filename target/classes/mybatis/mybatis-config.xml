@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="defaultExecutorType" value="REUSE" />
+    </settings>
+
+    <typeAliases>
+		<typeAlias type="com.hearttouch.util.PageData" alias="pd" />
+			<!-- 分页 -->
+		<typeAlias type="com.hearttouch.entity.Page" alias="Page" />
+		<typeAlias type="com.hearttouch.entity.StudentInfoEntity" alias="studentInfoEntity" />
+		<typeAlias type="com.hearttouch.entity.DormRepairEntity" alias="dormRepairEntity" />
+        <!-- 分页 -->
+        <!--<typeAlias type="com.fh.entity.Page" alias="Page"/>-->
+    </typeAliases>
+
+
+
+
+</configuration>

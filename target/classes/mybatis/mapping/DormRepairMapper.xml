@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DormRepairMapper">
+	
+
+	<!-- 报修类型 -->
+	<select id="listClassA" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT
+		DISTINCT TRIM(id) AS class_a,
+		TRIM(name) AS class_a_name
+		FROM 		
+			wh_fault_class 
+
+		WHERE type='A'
+	   <if test="create_dept != null and create_dept != ''"><!-- 关键词检索 -->
+		AND create_dept = #{create_dept}
+	   </if>
+	  <if test="class_a != null and class_a != ''"><!-- 关键词检索 -->
+		AND id = #{class_a}
+	   </if>
+		ORDER BY class_a_name
+	</select>
+		<!-- 报修内容 -->
+	<select id="listClassB" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT
+		DISTINCT TRIM(id) AS class_b,
+		TRIM(name) AS class_b_name
+		FROM 		
+			wh_fault_class 
+
+		WHERE type='B'
+	    AND   pid = #{class_a}
+		  <if test="class_b != null and class_b != ''"><!-- 关键词检索 -->
+			AND id = #{class_b}
+		   </if>
+	</select>
+			<!-- 学校 -->
+	<select id="listAreaA" parameterType="pd"  resultType="dormRepairEntity" useCache="false">
+		SELECT
+		DISTINCT TRIM(id) AS area_a,
+		TRIM(name) AS area_a_name,
+		create_dept AS create_dept
+		FROM 		
+			wh_fault_area 
+		WHERE type='A'
+		<if test="area_a_name != null and area_a_name != ''"><!-- 关键词检索 -->
+		AND name LIKE CONCAT(CONCAT('%', #{area_a_name}),'%')
+	   </if>
+	   <if test="area_a != null and area_a != ''"><!-- 关键词检索 -->
+			AND id = #{area_a}
+		</if>
+	   ORDER BY area_a_name
+	</select>
+				<!-- 栋号 -->
+	<select id="listAreaB" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT
+		DISTINCT TRIM(id) AS area_b,
+		TRIM(name) AS area_b_name
+		FROM 		
+			wh_fault_area 
+		WHERE type='B'
+		AND   pid = #{area_a} 
+	    <if test="area_b != null and area_b != ''"><!-- 关键词检索 -->
+			AND id = #{area_b}
+		</if>
+	</select>
+				<!-- 楼层 -->
+	<select id="listAreaF" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT
+		DISTINCT TRIM(id) AS area_f,
+		TRIM(name) AS area_f_name
+		FROM 		
+			wh_fault_area 
+		WHERE type='F'
+		AND   pid = #{area_b} 
+	    <if test="area_f != null and area_f != ''"><!-- 关键词检索 -->
+			AND id = #{area_f}
+		</if>		
+	</select>	
+				<!-- 楼层 -->
+	<select id="listAreaR" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT
+		DISTINCT TRIM(id) AS area_r,
+		TRIM(name) AS area_r_name
+		FROM 		
+			wh_fault_area 
+		WHERE type='R'
+		AND   pid = #{area_f} 
+	    <if test="area_r != null and area_r != ''"><!-- 关键词检索 -->
+			AND id = #{area_r}
+		</if>		
+	</select>		
+	<insert id="addRepairInfo" parameterType="pd" flushCache="false">
+		INSERT INTO wh_fault(
+		id,
+		class_a,
+		class_b,
+		area_a,
+		area_b,
+		area_f,
+		area_r,
+		tel,
+		remark,
+		stat,
+		repair_time,
+		create_dept,
+		create_date,
+		update_date
+		)
+		VALUES(
+		#{id},
+		#{class_a},
+		#{class_b},
+		#{area_a},
+		#{area_b},
+		#{area_f},
+		#{area_r},
+		#{tel},
+		#{remark},
+		'NEW',	
+		#{repair_time},
+		#{create_dept},
+		CURRENT_TIMESTAMP(),
+		CURRENT_TIMESTAMP()
+		)
+		
+
+	</insert>
+
+	
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SchoolManageMapper">
+	
+
+	<!-- 学校列表 -->
+	<select id="listStudentInfobyOpen_id"  parameterType="String"  resultType="studentInfoEntity" useCache="false">
+	    SELECT
+	      A.school as school,
+	      A.open_id as open_id,
+	      A.nickname as nickname,
+	      A.headimgurl as headimgurl,
+	      A.name   as name,
+	      A.tel   as tel,
+	      A.id_card as  id_card,
+	      B.name    as school_name
+		FROM 		
+			student_info AS  A
+		LEFT JOIN
+		  wh_fault_area  AS B
+		 ON A.school= B.id		 
+		where A.open_id = #{open_id}
+		LIMIT 1;
+	</select>
+	
+	<insert id="addStudentInfo" parameterType="pd" flushCache="false">
+		INSERT INTO student_info(open_id,school,nickname,headimgurl)
+		VALUES(#{open_id},#{school},#{nickname},#{headimgurl});
+		
+
+	</insert>
+	<update id="updateStudentInfo" parameterType="pd" flushCache="false">
+		UPDATE  student_info
+		 SET school = #{school}
+		WHERE 
+		open_id = #{open_id};
+	</update>
+	<update id="updateStudentDetailInfo" parameterType="pd" flushCache="false">
+		UPDATE  student_info
+		 SET name = #{name},
+		 tel = #{tel},
+		 id_card = #{id_card}
+		WHERE 
+		open_id = #{open_id};
+	</update>
+    <resultMap type="com.hearttouch.entity.StudentInfoEntity" id="studentInfoEntity" autoMapping="true">
+        <id property="open_id" column="open_id"/>
+        <result property="school" column="school"/>
+        <result property="school_name" column="school_name"/>
+        <result property="nickname" column="nickname"/>
+        <result property="headimgurl" column="headimgurl"/>
+        <result property="name" column="name"/>
+        <result property="id_card" column="id_card"/>
+        <result property="tel" column="tel"/>
+    </resultMap>
+	
+</mapper>
