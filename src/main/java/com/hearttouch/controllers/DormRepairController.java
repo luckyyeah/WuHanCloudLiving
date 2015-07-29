@@ -54,11 +54,47 @@ public class DormRepairController extends BaseController {
 
     	HttpServletRequest request = this.getRequest();
     	HttpSession session = request.getSession();
+    	//从服务器认证中获取信息
         String  openid = page.getPd().getString("openid");
-        try{
+        String nickname =   page.getPd().getString("nickname");
+        String headimgurl = page.getPd().getString("headimgurl");
+        String code =pd.getString("code");
+        StudentInfoEntity studentInfoEntity =null;
+       //从云生活中没有传来参数
+        if((openid ==null || "".equals(openid))){
+        	openid = pd.getString("openid");
+        }
+        if(nickname ==null || "".equals(nickname)){
+        	nickname = pd.getString("nickname");
+        }
+        if(headimgurl ==null || "".equals(headimgurl)){
+        	headimgurl = pd.getString("headimgurl");
+        }	
+
+        //云生活中没有传来参数值走我们的认证页面
+/*        if((openid ==null || "".equals(openid))&& (code ==null || "".equals(code))) {
+        	 mv.setViewName("index");
+           	//获取用户基本信息
+    		String requestUrl=Const.SNSAPI_BASE_URL.replace("APPID",Const.APPID);
+    		requestUrl =requestUrl.replace("REDIRECT_URI", Const.SNSAPI_BASE_REDIRECT_URI);
+            mv.addObject("URL", requestUrl);
+        	 return mv;
+        } else */
+        if(openid !=null ) {
+        	pd.put("open_id", openid);
+    		pd.put("nickname", nickname);
+    		pd.put("headimgurl", headimgurl);		
+        	pd.put("openid", openid);
+        	studentInfoEntity = schoolManageService.listStudentInfobyOpen_id(openid);
+        	if(!(studentInfoEntity !=null && studentInfoEntity.getOpen_id()!=null)){
+	        	//把数据保存在服务器表中
+	        	schoolManageService.addStudentInfo(pd);
+        	}
+        }
+/*        try{
 	        //从别的画面迁移过来时
 	        if(openid ==null || "".equals(openid)){
-	            String code =pd.getString("code");
+	            
 	          	//获取REFRESH_TOKEN 开始
 	    		String requestUrl=Const.REFRESH_TOKEN_URL.replace("APPID",Const.APPID);
 	    		requestUrl =requestUrl.replace("SECRET", Const.APP_SECRET);
@@ -68,11 +104,16 @@ public class DormRepairController extends BaseController {
 	        }
         }catch(Exception ex) {
         	logger.error(ex);
-        }
-        StudentInfoEntity studentInfoEntity =schoolManageService.listStudentInfobyOpen_id(openid);
+        }*/
+     
 		User user =new User();
         session.removeAttribute("user");
         user.setOpen_id(openid);
+        //用户信息查询不成功时候重新查询
+        if(!(studentInfoEntity !=null && studentInfoEntity.getOpen_id()!=null)){
+        	studentInfoEntity = schoolManageService.listStudentInfobyOpen_id(openid);      
+        }
+        //已保存信息的用户，获取用户信息
         if(studentInfoEntity !=null && studentInfoEntity.getOpen_id()!=null){
 	        user.setSchool(studentInfoEntity.getSchool());
 	        user.setSchool_name(studentInfoEntity.getSchool_name());
@@ -82,9 +123,15 @@ public class DormRepairController extends BaseController {
 	        user.setName(studentInfoEntity.getName());
 	        user.setId_card(studentInfoEntity.getId_card());
 	        mv.setViewName("school_index");
-        } else {
-        	 mv.setViewName("authority_Comfirm");
-        }
+        } /*else {
+        	// mv.setViewName("authority_Comfirm");
+	       	 mv.setViewName("index");
+	        	//获取用户基本信息
+	 		String requestUrl=Const.SNSAPI_USERINFO_URL.replace("APPID",Const.APPID);
+	 		requestUrl =requestUrl.replace("REDIRECT_URI", Const.SNSAPI_USERINFO_REDIRECT_URI);
+	 		mv.addObject("URL", requestUrl);
+	     	 return mv;
+        }*/
         session.setAttribute("user", user);
         //学校添加
         return mv;
@@ -197,8 +244,7 @@ public class DormRepairController extends BaseController {
         }
 		pd.put("open_id", openid);
 		pd.put("nickname", nickname);
-		pd.put("headimgurl", headimgurl);
-    	schoolManageService.addStudentInfo(pd);
+		pd.put("headimgurl", headimgurl);		
     	pd.put("openid", openid);
     	page.setPd(pd);
     	return showIndex(page);

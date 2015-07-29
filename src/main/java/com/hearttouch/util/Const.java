@@ -58,9 +58,9 @@ public class Const {
 	public static final int  PUBLISH_STTATUS_NO_APPLY =0;	    //未提交审批
 	public static final String WEIXIN_TOKEN ="ABCD123456";
 	//微信公众号APPID
-	public final static String APPID="wxb8521e23937b6789";
+	public final static String APPID="wxee246a902fc30075";
 	//微信公众号AppSecret
-	public final static String APP_SECRET="18794f89ea3b7d5490684a8b71a2c7ea";
+	public final static String APP_SECRET="80fd2a424dfddd4baceca1a824564e9e";
 	//获取REFRESH_TOKEN的URL
 	public final static String REFRESH_TOKEN_URL="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 	//获取ACCESS_TOKEN的URL
@@ -69,7 +69,11 @@ public class Const {
 	public final static String USER_INFO_URL="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 	public final static String DIRECT_ACCESS_TOKEN_URL ="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	public final static  String POST_TEMPLETE_MESSAGE_URL  = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
-	public final static  String MESSAGE_TEMPLATE_ID ="qjT3sXCMjMEX1kDtQK3Jq6TDeGo-Rk5sSGpMj1TcgRA";
+	public final static  String SNSAPI_BASE_URL  = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base#wechat_redirect";
+	public final static  String SNSAPI_USERINFO_URL  = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+	public final static  String MESSAGE_TEMPLATE_ID ="lVf5K5qNs-lbXbzXmXe3XqhldJywtelCylvUzN2pvcY";
 	public final static  String MESSAGE_REMARK="寝室报修提交已成功，学校管理人员将会尽快和您联系!";
+	public final static  String SNSAPI_USERINFO_REDIRECT_URI="http%3A%2F%2Fcms.xincdmedia.com%3A8080%2FWuHanCloudLiving%2FaddStudentInfo";
+	public final static  String SNSAPI_BASE_REDIRECT_URI="http%3A%2F%2Fcms.xincdmedia.com%3A8080%2FWuHanCloudLiving%2FshowIndex";
 }
 

@@ -19,12 +19,12 @@ public class TestTemlete {
 	    		 requestUrl=template_apply_url.replace("ACCESS_TOKEN",access_token);
 	    		 String output ="{\"industry_id1\":\"1\",\"industry_id2\":\"21\"}";
 	    		jsonObject = WeixinController.httpRequst(requestUrl, "POST", output);
-	    		// String access_token2 = jsonObject.getString("access_token"); */
+	    		// String access_token2 = jsonObject.getString("access_token"); 
    		       String template_id_rl  = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=ACCESS_TOKEN";
 	    		 requestUrl=template_id_rl.replace("ACCESS_TOKEN",access_token);
 	    		String  output ="{\"template_id_short\":\"OPENTM207102527\"}";
 	    		 jsonObject = WeixinController.httpRequst(requestUrl, "POST", output);
-	    		 String template_id = jsonObject.getString("template_id");
+	    		 String template_id = jsonObject.getString("template_id");*/
 	    		// String jsonText="{"touser":"OPENID","template_id":"templateId","url":"","topcolor":"#FF0000","data":{"first": {"value":"firstData","color":"#173177"},"product": {"value":"productData","color":"#173177"},"price": {"value":"priceData","color":"#173177"},"time": {"value":"timeData","color":"#173177"},"remark": {"value":"remarkData","color":"#173177"}}}";
 	             
 	    		 String post_message_url  = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
@@ -33,7 +33,7 @@ public class TestTemlete {
 	    		 
 	    		    MsgTemplate msgTemplate = new MsgTemplate();
 	    	        msgTemplate.setTouser("oAULZwp8n1ZtBegw5Q1qkdFBP0W4");
-	    	        msgTemplate.setTemplate_id("pJ9JZ2XVr6V43i9uPh42y1vk_EDLfj7AT41zeCZ2Q_0");
+	    	        msgTemplate.setTemplate_id("lVf5K5qNs-lbXbzXmXe3XqhldJywtelCylvUzN2pvcY");
 	    	        msgTemplate.setTopcolor("#000000");
 	    	        msgTemplate.setUrl("");
 	    	        msgTemplate.addTextField("first", "binbin");
@@ -44,10 +44,10 @@ public class TestTemlete {
 	    	        String post_message = msgTemplate.toJson();
 	    		 jsonObject = WeixinController.httpRequst(requestUrl, "POST", post_message);
 	 
-	    	
-	    	    
+	    		String  testURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxee246a902fc30075&redirect_uri=http%3A%2F%2Fcms.xincdmedia.com:8080%2FWuHanCloudLiving%2FaddStudentInfo&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+	    		 jsonObject = WeixinController.httpRequst(testURL, "get", null);
 	    	        
-	    		 
+	    		 String error_code = jsonObject.getString("error_code");
 
 	}
 
