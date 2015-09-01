@@ -9,76 +9,74 @@
 <html>
 <head>
 	<base href="<%=basePath%>">
-    <title>学校</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="static/css/Jingle.min.css">
-    <link rel="stylesheet" href="static/css/school.css">
-    <script>
-        var C = {
-            'bingding' : 0        };
-       
-    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>智慧校园</title>
+    <link rel="stylesheet" href="static/css/frozen.css">
+    <link rel="stylesheet" href="static/css/index.css">
 </head>
 <body>
-<div id="section_container">
-    <section id="index_section" class="active">
-        <article class="active coindex-hm" data-scroll="true">
-            <div class="commu-main">
-                <div class="header">
-                    <div class="avatar">
-                        <a href="javascript:void(0);" data-target="section">
-                        <c:if test="${user.headimgurl==null || user.headimgurl==''}">
-                            <img src="static/image/usr_default.png">
-                        </c:if>
-                       <c:if test="${user.headimgurl!=null && user.headimgurl!=''}">
-                            <img src="${user.headimgurl}">
-                        </c:if>
-                        </a>
-                    </div>
-                    <div class="info">
-                        <a href="showStudentInfo" data-target="section" class="name">
-                            <!--<span class="name"></span>-->
-                            ${user.nickname}
-			            </a>
-			            <c:if test="${user.school==null || user.school==''}">
-			              <a href="schoolAdd#school_section" data-target="section" class="position">
-                           	加入学校                                                    
-		                </a>
-			            </c:if>
-			            <c:if test="${user.school!=null && user.school!=''}">
-                        <a href="schoolAdd#school_section" data-target="section" class="position">
-                           	${user.school_name}                                                
-		                </a>
-		                </c:if>
-                    </div>
-                    <div class="manage">
-                        <a href="showSchoolList" data-target="section">学校管理</a>
-                    </div>
+<div class="contain">
+    <div class="page">
+        <div class="head">
+             <a href="showStudent">
+              <c:if test="${user.headimgurl==null || user.headimgurl==''}">
+                  <img src="static/image/index/sculpture.png">
+              </c:if>
+             <c:if test="${user.headimgurl!=null && user.headimgurl!=''}">
+                  <img src="${user.headimgurl}">
+              </c:if>
+              </a>
+        </div>
+        <div class="content">
+            <div class="table">
+                <div class="row">
+                    <a href="dormRepair">
+                        <img src="static/image/index/fix.png">
+                        <p>寝室报修</p>
+                    </a>
+                    <a  href="pages/wait/justwait.html">
+                        <img src="static/image/index/work.png">
+                        <p>兼职</p>
+                    </a>
+                    <a  href="static/pages/wait/justwait.html">
+                        <img src="static/image/index/found.png">
+                        <p>失物招领</p>
+                    </a>
                 </div>
-                <div class="common">
-                    <div class="row clearfix">
-                        <a href="dormRepair#school_section" data-target="section">
-                            <img src="static/image/repair.png">
-                            <p>寝室报修</p>
-                        </a>
-                    </div>
-                    <div class="tel clearfix">
-                        <a href="tel:">
-                          
-                            <span class="wdwy"></span>
-                            <span class="wdtel"></span>
-                        </a>
-                    </div>
             </div>
-        </article>
-    </section>
+            <div class="table">
+                <div class="row">
+                    <a  href="pages/wait/justwait.html">
+                        <img src="static/image/index/schedule.png">
+                        <p>课程表</p>
+                    </a>
+                    <a  href="pages/wait/justwait.html">
+                        <img src="static/image/index/exercise.png">
+                        <p>题库</p>
+                    </a>
+                    <a  href="http://shequ.kdweibo.com/shequ/accounts/basics/559a417ae4b0687f3fce7fa4">
+                        <img src="static/image/index/talk.png">
+                        <p>校话</p>
+                    </a>
+                </div>
+            </div>
+            <div class="last">
+                <div class="lastrow">
+                    <a  href="pages/wait/justwait.html">
+                        <img src="static/image/index/online.png">
+                        <p>online</p>
+                    </a>
+                    <a  href="pages/wait/justwait.html">
+                        <img src="static/image/index/announce.png">
+                        <p>公告</p>
+                    </a>
+                    <a></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- lib -->
-<script type="text/javascript" src="static/js/require.js"></script>
 </body>
 </html>

@@ -1,0 +1,28 @@
+.con-head{
+    width: 100%;
+    height: 40px;
+    background-color: dimgrey;
+    color: white;
+    line-height: 40px;
+    text-align: center;
+}
+.tip{
+    display: block;
+    width: 100vw;
+    height: 50vw;
+    position: relative;
+}
+.tipinfo{
+    width: 96px;
+    height: 103px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.tipicon img{
+    width: 50%;
+}

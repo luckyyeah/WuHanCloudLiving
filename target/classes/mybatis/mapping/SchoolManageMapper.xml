@@ -21,12 +21,12 @@
 		  wh_fault_area  AS B
 		 ON A.school= B.id		 
 		where A.open_id = #{open_id}
-		LIMIT 1;
+		LIMIT 1
 	</select>
 	
 	<insert id="addStudentInfo" parameterType="pd" flushCache="false">
 		INSERT INTO student_info(open_id,school,nickname,headimgurl)
-		VALUES(#{open_id},#{school},#{nickname},#{headimgurl});
+		VALUES(#{open_id},#{school},#{nickname},#{headimgurl})
 		
 
 	</insert>

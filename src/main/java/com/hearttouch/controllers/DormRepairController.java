@@ -1,6 +1,7 @@
 package com.hearttouch.controllers;
 
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,9 +11,6 @@ import java.util.TreeMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -29,6 +27,9 @@ import com.hearttouch.service.SchoolManageService;
 import com.hearttouch.util.Const;
 import com.hearttouch.util.GetPinyin;
 import com.hearttouch.util.PageData;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /*
  * 总入口
@@ -49,6 +50,7 @@ public class DormRepairController extends BaseController {
     public ModelAndView showIndex(Page page) throws Exception {
     	
         ModelAndView mv = this.getModelAndView();   
+        try{
         PageData pd = new PageData();
         pd = this.getPageData();
 
@@ -80,6 +82,14 @@ public class DormRepairController extends BaseController {
             mv.addObject("URL", requestUrl);
         	 return mv;
         } else */
+/*      try{
+	        
+	        nickname =new String(nickname.getBytes("ISO-8859-1"),"UTF-8");
+	      //  nickname =URLDecoder.decode(nickname,   "utf-8");   
+	         headimgurl =new String(headimgurl.getBytes("ISO-8859-1"),"UTF-8");
+         }catch(Exception ex) {
+        	 
+         }*/
         if(openid !=null ) {
         	pd.put("open_id", openid);
     		pd.put("nickname", nickname);
@@ -123,6 +133,7 @@ public class DormRepairController extends BaseController {
 	        user.setName(studentInfoEntity.getName());
 	        user.setId_card(studentInfoEntity.getId_card());
 	        mv.setViewName("school_index");
+	        
         } /*else {
         	// mv.setViewName("authority_Comfirm");
 	       	 mv.setViewName("index");
@@ -133,7 +144,18 @@ public class DormRepairController extends BaseController {
 	     	 return mv;
         }*/
         session.setAttribute("user", user);
+        }catch(Exception ex) {
+        	logger.error(ex);
+        }
         //学校添加
+        return mv;
+    }
+
+    //显示学生信息
+    @RequestMapping(value = "/showStudent")
+    public ModelAndView showStudent(Page page) throws Exception {
+        ModelAndView mv = this.getModelAndView();   
+        mv.setViewName("student");
         return mv;
     }
     

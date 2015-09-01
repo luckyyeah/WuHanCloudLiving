@@ -1,0 +1,21 @@
+html, body {
+	background-color: #fff;
+}
+.fire {
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 30%;
+	text-align: center;
+}
+.fire img {
+	max-width: 40%;
+}
+.please {
+	margin-top: 20px;
+	text-align: center;
+	color: #444;
+}
+.please p {
+	font-size: 18px;
+	margin: 14px 0;
+}

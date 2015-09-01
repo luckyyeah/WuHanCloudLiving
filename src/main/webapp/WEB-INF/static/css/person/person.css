@@ -1,0 +1,50 @@
+.head {
+    width: 100vw;
+    height: 42vw;
+    background: url("../../image/index/head_bg.png")center;
+    background-size: cover;
+}
+.sculpture a{
+    display: inline-block;
+}
+.sculpture{
+    height: 100px;
+    position: absolute;
+    top: 42vw;
+    margin-top: -60px;
+    width: 100%;
+    text-align: center;
+}
+.sculpture img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+}
+.name{
+    text-align: center;
+    margin-top: 56px;
+}
+.nameone{
+    font-size: 18px;
+    height: 18px;
+    line-height: 18px;
+}
+.nametwo{
+    font-size: 16px;
+    height: 16px;
+    line-height: 16px;
+    color: #3fc703;
+    padding: 15px 0 25px 0;
+}
+.main{
+    border-top: 1px solid #cccccc;
+}
+.main a{
+    display: block;
+    padding: 10px 0 10px 15px;
+    border-bottom: 1px solid #cccccc;
+    color: #000000;
+    font-size: 16px;
+}

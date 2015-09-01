@@ -62,11 +62,11 @@
 </section></div>
 <!-- lib -->
 <!-- lib -->
-<script type="text/javascript" data-requirecontext="_" data-requiremodule="school_list" src="static/js/school_list.js"></script>
+
 <script type="text/javascript" src="static/js/require.js"></script>
 <!--- app --->
 <script type="text/javascript" src="static/js/app.js"></script>
 <div id="jingle_toast"></div><div id="jingle_popup" style="display: none;" class="loading"></div><div id="jingle_popup_mask" style="opacity: 0.1; display: none;"></div>
-
+<script type="text/javascript" data-requirecontext="_" data-requiremodule="school_list" src="static/js/school_list.js"></script>
 </body>
 </html>
