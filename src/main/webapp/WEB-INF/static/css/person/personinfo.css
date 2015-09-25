@@ -9,7 +9,7 @@ body{
     width: 100%;
     min-width: 300px;
     height: 100vh;
-    background: url("../../img/person/personinfo/bg.png")no-repeat fixed center;
+    background: url("../../image/person/personinfo/bg.png")no-repeat fixed center;
     background-size: cover;
 }
 .ui-container{

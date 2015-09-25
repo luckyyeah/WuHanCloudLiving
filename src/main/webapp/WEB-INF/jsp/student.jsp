@@ -37,7 +37,6 @@
         <div class="main">
             <a href="showStudentInfo" class="ui-arrowlink">个人资料</a>
             <a href="schoolAdd" class="ui-arrowlink">学校管理</a>
-            <a href="../../html/person/addCommunity2.html" class="ui-arrowlink">社区管理</a>
         </div>
     </div>
 </body>

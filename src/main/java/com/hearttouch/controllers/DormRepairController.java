@@ -50,6 +50,7 @@ public class DormRepairController extends BaseController {
     public ModelAndView showIndex(Page page) throws Exception {
     	
         ModelAndView mv = this.getModelAndView();   
+        mv.setViewName("school_index");
         try{
         PageData pd = new PageData();
         pd = this.getPageData();
@@ -60,7 +61,7 @@ public class DormRepairController extends BaseController {
         String  openid = page.getPd().getString("openid");
         String nickname =   page.getPd().getString("nickname");
         String headimgurl = page.getPd().getString("headimgurl");
-        String code =pd.getString("code");
+        String fromSite =pd.getString("fromSite");
         StudentInfoEntity studentInfoEntity =null;
        //从云生活中没有传来参数
         if((openid ==null || "".equals(openid))){
@@ -72,7 +73,10 @@ public class DormRepairController extends BaseController {
         if(headimgurl ==null || "".equals(headimgurl)){
         	headimgurl = pd.getString("headimgurl");
         }	
-
+        //来自的站点
+        if((fromSite ==null || "".equals(fromSite))){
+        	fromSite = pd.getString("fromSite");
+        }
         //云生活中没有传来参数值走我们的认证页面
 /*        if((openid ==null || "".equals(openid))&& (code ==null || "".equals(code))) {
         	 mv.setViewName("index");
@@ -119,6 +123,8 @@ public class DormRepairController extends BaseController {
 		User user =new User();
         session.removeAttribute("user");
         user.setOpen_id(openid);
+        //来自的站点
+        user.setFromSite(fromSite);
         //用户信息查询不成功时候重新查询
         if(!(studentInfoEntity !=null && studentInfoEntity.getOpen_id()!=null)){
         	studentInfoEntity = schoolManageService.listStudentInfobyOpen_id(openid);      
@@ -132,7 +138,7 @@ public class DormRepairController extends BaseController {
 	        user.setTel(studentInfoEntity.getTel());
 	        user.setName(studentInfoEntity.getName());
 	        user.setId_card(studentInfoEntity.getId_card());
-	        mv.setViewName("school_index");
+	       
 	        
         } /*else {
         	// mv.setViewName("authority_Comfirm");
@@ -144,9 +150,15 @@ public class DormRepairController extends BaseController {
 	     	 return mv;
         }*/
         session.setAttribute("user", user);
+	       if(Const.FROM_SITE_XINCD.equals(fromSite)){
+	    	  // return new ModelAndView("redirect:/dormRepair");
+	    	    mv.setViewName("accountInfo");
+	        } 
         }catch(Exception ex) {
         	logger.error(ex);
         }
+       
+  
         //学校添加
         return mv;
     }
@@ -227,6 +239,7 @@ public class DormRepairController extends BaseController {
         mv.addObject("mapSchool", mapSchool);
         mv.addObject("page", page);
         mv.addObject("pd", pd);
+        
         mv.setViewName("school_list");
 
 
@@ -447,14 +460,29 @@ public class DormRepairController extends BaseController {
         //生成key
         pd.put("id", get32UUID());
         String school = pd.getString("school");
-        // 取得学校
+        // 添加报修记录
         dormRepairService.addRepairInfo(pd);
+        HttpServletRequest request = this.getRequest();
+    	HttpSession session = request.getSession();
+        User user= (User)session.getAttribute("user");
+        pd.put("fault_id", pd.get("id"));
+        if(user!=null){
+        	pd.put("open_id", user.getOpen_id());
+        }
+        dormRepairService.addDormRepairHistory(pd);
         page.setPd(pd);
         pushMessage(page);
 //        System.out.println(jsonHistoryclickData);
         String msg="{\"msg\":\"寝室保修提交成功\"}";
         out.write(msg);
         out.close();
+    }
+    //显示学生信息
+    @RequestMapping(value = "/repairSuccess")
+    public ModelAndView repairSuccess(Page page) throws Exception {
+        ModelAndView mv = this.getModelAndView();   
+        mv.setViewName("dorm_repair_sucess");
+        return mv;
     }
     public void pushMessage(Page page) throws Exception{
     	
@@ -465,15 +493,32 @@ public class DormRepairController extends BaseController {
            HttpServletRequest request = this.getRequest();
        	   HttpSession session = request.getSession();
            User user= (User)session.getAttribute("user");
+           String fromSite= "";
            String name ="";
+           //取得用户名如果用户没有填写真实姓名，填写昵称
+           if(user!=null ){
+        	   if(user.getName() !=null && !"".equals(user.getName())){
+        	   name = user.getName();
+        	   }
+        	   else {
+        		   name = user.getNickname();
+        	   }
+        	   fromSite =user.getFromSite();
+           }
 /*           user =new User();
            user.setOpen_id("oAULZwp8n1ZtBegw5Q1qkdFBP0W4");
            user.setName("yeah");*/
 			// 获取access_token 开始
-			String requestUrl = Const.DIRECT_ACCESS_TOKEN_URL.replace("APPID",
-					Const.APPID);
-			requestUrl = requestUrl.replace("APPSECRET", Const.APP_SECRET);
-
+            String requestUrl="";
+            if(Const.FROM_SITE_XINCD.equals(fromSite)){
+				requestUrl = Const.DIRECT_ACCESS_TOKEN_URL.replace("APPID",
+						Const.APPID_XINCD);
+				requestUrl = requestUrl.replace("APPSECRET", Const.APP_SECRET_XINCD);	
+            } else {
+				requestUrl = Const.DIRECT_ACCESS_TOKEN_URL.replace("APPID",
+						Const.APPID);
+				requestUrl = requestUrl.replace("APPSECRET", Const.APP_SECRET);
+            }
 			JSONObject jsonObject = WeixinController.httpRequst(requestUrl,
 					"GET", null);
 			String access_token = jsonObject.getString("access_token");
@@ -483,19 +528,15 @@ public class DormRepairController extends BaseController {
 			MsgTemplate msgTemplate = new MsgTemplate();
 			msgTemplate.setTouser(user.getOpen_id());
 			//设置消息模板
-			msgTemplate.setTemplate_id(Const.MESSAGE_TEMPLATE_ID);
+			 if(Const.FROM_SITE_XINCD.equals(fromSite)){
+				 msgTemplate.setTemplate_id(Const.MESSAGE_TEMPLATE_ID_XINCD);
+			 } else {
+				 msgTemplate.setTemplate_id(Const.MESSAGE_TEMPLATE_ID);
+			 }
 			msgTemplate.setTopcolor("#000000");
 			msgTemplate.setUrl("");
 
-           //取得用户名如果用户没有填写真实姓名，填写昵称
-           if(user!=null ){
-        	   if(user.getName() !=null && !"".equals(user.getName())){
-        	   name = user.getName();
-        	   }
-        	   else {
-        		   name = user.getNickname();
-        	   }
-           }
+     
 			msgTemplate.addTextField("first", "");
 			msgTemplate.addTextField("keyword1", name,"#000000");			
 			
@@ -553,6 +594,41 @@ public class DormRepairController extends BaseController {
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
+    }
+    @RequestMapping(value = "/showDormRepairHistory")
+    public ModelAndView showDormRepairHistory(Page page) throws Exception {
+
+    	   PageData pd = new PageData();
+           pd = this.getPageData();
+           ModelAndView mv = this.getModelAndView();   
+           mv.setViewName("repair_history");
+           //已加入的用户取得栋号
+           HttpServletRequest request = this.getRequest();
+       	   HttpSession session = request.getSession();
+           User user= (User)session.getAttribute("user");
+           pd.put("open_id", user.getOpen_id());
+           // 报修历史记录报修ID
+           List<DormRepairEntity> listDormRepairHistory = dormRepairService.listDormRepairHistory(pd);
+           List<String> repairIds = new ArrayList<String>();
+           
+           for(DormRepairEntity dormRepairEntity:listDormRepairHistory){
+        	   repairIds.add(dormRepairEntity.getFault_id());
+           }
+           pd.put("repairIds", repairIds);
+           // 报修历史记录
+           List<DormRepairEntity> listDormRepairHistoryInfo =  new ArrayList<DormRepairEntity>();
+           if(repairIds.size() >0){
+        	   listDormRepairHistoryInfo = dormRepairService.listDormRepairHistoryInfo(pd);
+           }
+           int index=0;
+           for(DormRepairEntity dormRepairEntity:listDormRepairHistoryInfo){
+        	   dormRepairEntity.setStat(DormRepairEntity.statMap.get(dormRepairEntity.getStat()));
+        	   listDormRepairHistoryInfo.set(index, dormRepairEntity);
+        	   index++;
+           }
+           mv.addObject("listDormRepairHistoryInfo", listDormRepairHistoryInfo);
+           //学校添加
+           return mv;
     }
     
 }

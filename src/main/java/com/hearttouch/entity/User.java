@@ -12,7 +12,7 @@ public class User {
 	String name;
 	String tel;
 	String id_card;
-	
+	String fromSite;	
 	public String getName() {
 		return name;
 	}
@@ -60,6 +60,12 @@ public class User {
 	}
 	public void setSchool_name(String school_name) {
 		this.school_name = school_name;
+	}
+	public String getFromSite() {
+		return fromSite;
+	}
+	public void setFromSite(String fromSite) {
+		this.fromSite = fromSite;
 	}
 
 

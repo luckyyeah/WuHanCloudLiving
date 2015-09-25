@@ -36,7 +36,7 @@
                         <img src="static/image/index/fix.png">
                         <p>寝室报修</p>
                     </a>
-                    <a  href="pages/wait/justwait.html">
+                    <a  href="static/pages/wait/justwait.html">
                         <img src="static/image/index/work.png">
                         <p>兼职</p>
                     </a>
@@ -48,11 +48,11 @@
             </div>
             <div class="table">
                 <div class="row">
-                    <a  href="pages/wait/justwait.html">
+                    <a  href="static/pages/wait/justwait.html">
                         <img src="static/image/index/schedule.png">
                         <p>课程表</p>
                     </a>
-                    <a  href="pages/wait/justwait.html">
+                    <a  href="static/pages/wait/justwait.html">
                         <img src="static/image/index/exercise.png">
                         <p>题库</p>
                     </a>
@@ -64,11 +64,11 @@
             </div>
             <div class="last">
                 <div class="lastrow">
-                    <a  href="pages/wait/justwait.html">
+                    <a  href="static/pages/wait/justwait.html">
                         <img src="static/image/index/online.png">
                         <p>online</p>
                     </a>
-                    <a  href="pages/wait/justwait.html">
+                    <a  href="static/pages/wait/justwait.html">
                         <img src="static/image/index/announce.png">
                         <p>公告</p>
                     </a>

@@ -7,9 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.hearttouch.dao.DaoSupport;
+import com.hearttouch.dao.DaoSupportEx;
 import com.hearttouch.entity.DormRepairEntity;
-import com.hearttouch.entity.Page;
-import com.hearttouch.entity.StudentInfoEntity;
 import com.hearttouch.util.PageData;
 
 
@@ -20,6 +19,8 @@ public class DormRepairService {
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
 	
+	@Resource(name = "daoSupportEx")
+	private DaoSupportEx daoEx;
 
 	//======================================================================================
 
@@ -50,5 +51,13 @@ public class DormRepairService {
 	public void addRepairInfo(PageData pd)throws Exception{
 		  dao.findForList("DormRepairMapper.addRepairInfo", pd);
 	}
-
+	public void addDormRepairHistory(PageData pd)throws Exception{
+		daoEx.findForList("DormRepairMapper.addDormRepairHistory", pd);
+	}
+	public List<DormRepairEntity> listDormRepairHistory(PageData pd)throws Exception{
+		return (List<DormRepairEntity>) daoEx.findForList("DormRepairMapper.listDormRepairHistory", pd);
+	}
+	public List<DormRepairEntity> listDormRepairHistoryInfo(PageData pd)throws Exception{
+		return (List<DormRepairEntity>) dao.findForList("DormRepairMapper.listDormRepairHistoryInfo", pd);
+	}
 }

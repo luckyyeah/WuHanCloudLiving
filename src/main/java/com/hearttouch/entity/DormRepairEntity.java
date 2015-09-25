@@ -1,6 +1,19 @@
 package com.hearttouch.entity;
 
+import java.util.Map;
+
+import com.google.common.collect.Maps;
+
 public class DormRepairEntity {
+	
+	public static final Map<String, String> statMap = Maps.newHashMap();
+
+	static {
+		statMap.put("NEW", "已提交报修");
+		statMap.put("DEALING", "处理中");
+		statMap.put("COMPLETE", "处理完毕");
+
+	}
 	String	id;
 	String  school;
 	String  dorm;
@@ -20,7 +33,15 @@ public class DormRepairEntity {
 	String remark;
 	String repair_time;	
 	String create_dept;
-	
+	String stat;
+	public String getStat() {
+		return stat;
+	}
+	public void setStat(String stat) {
+		this.stat = stat;
+	}
+	String fault_id;
+	String create_date;	
 	public String getCreate_dept() {
 		return create_dept;
 	}
@@ -136,6 +157,18 @@ public class DormRepairEntity {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getFault_id() {
+		return fault_id;
+	}
+	public void setFault_id(String fault_id) {
+		this.fault_id = fault_id;
+	}
+	public String getCreate_date() {
+		return create_date;
+	}
+	public void setCreate_date(String create_date) {
+		this.create_date = create_date;
 	}
 
 

@@ -144,7 +144,7 @@ define(['Page', 'Jingle'], function(p, J) {
                         });
                     }
                 });
-                $('#dorm_repair_btn').tap(function(e){
+                $('#dorm_repair_btn').click(function(e){
                     var repair_form = $("#dorm_repair_form");
                     if(repair_form.find('#tel').val() == ''){
                         alert('请填写电话号码');
@@ -190,8 +190,10 @@ define(['Page', 'Jingle'], function(p, J) {
 
                           //  if(json.code == 100){
                              //   window.C.bingding = 1;
-                                J.showToast(json.msg, 'success');
-                                J.Router.goTo("#index_section?_=" + new Date().getTime());
+                        	 //swal( "寝室报修", json.msg, "success" );
+                        	location.href="repairSuccess"
+                               // J.showToast(json.msg, 'success');
+                               // J.Router.goTo("#index_section?_=" + new Date().getTime());
 /*                            }else{
                                 J.showToast(json.msg, 'error');
                             }*/

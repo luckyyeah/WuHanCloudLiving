@@ -59,8 +59,10 @@ public class Const {
 	public static final String WEIXIN_TOKEN ="ABCD123456";
 	//微信公众号APPID
 	public final static String APPID="wxee246a902fc30075";
+	public final static String APPID_XINCD="wx47614a7fc7cd9c94";
 	//微信公众号AppSecret
 	public final static String APP_SECRET="80fd2a424dfddd4baceca1a824564e9e";
+	public final static String APP_SECRET_XINCD="c1c4ebfe2281191d79e1a15f26d34ee8";
 	//获取REFRESH_TOKEN的URL
 	public final static String REFRESH_TOKEN_URL="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 	//获取ACCESS_TOKEN的URL
@@ -72,8 +74,11 @@ public class Const {
 	public final static  String SNSAPI_BASE_URL  = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base#wechat_redirect";
 	public final static  String SNSAPI_USERINFO_URL  = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo#wechat_redirect";
 	public final static  String MESSAGE_TEMPLATE_ID ="lVf5K5qNs-lbXbzXmXe3XqhldJywtelCylvUzN2pvcY";
+	public final static  String MESSAGE_TEMPLATE_ID_XINCD ="MgrGKnQviXE6MsE3BqqUHdAfbtQAHY5FXzg91TkqzZQ";
 	public final static  String MESSAGE_REMARK="寝室报修提交已成功，学校管理人员将会尽快和您联系!";
 	public final static  String SNSAPI_USERINFO_REDIRECT_URI="http%3A%2F%2Fcms.xincdmedia.com%3A8080%2FWuHanCloudLiving%2FaddStudentInfo";
 	public final static  String SNSAPI_BASE_REDIRECT_URI="http%3A%2F%2Fcms.xincdmedia.com%3A8080%2FWuHanCloudLiving%2FshowIndex";
+	public final static  String FROM_SITE_XINCD="1";
+	
 }
 

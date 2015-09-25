@@ -128,5 +128,79 @@
 
 	</insert>
 
+	<insert id="addDormRepairHistory" parameterType="pd" flushCache="false">
+		INSERT INTO dorm_repair(
+		open_id,
+		fault_id,
+		add_time,
+		update_time
+		)
+		VALUES(
+		#{open_id},
+		#{fault_id},
+		CURRENT_TIMESTAMP(),
+		CURRENT_TIMESTAMP()
+		)
+		
+
+	</insert>	
+	<select id="listDormRepairHistory" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT
+		open_id,
+		fault_id
+		FROM 		
+			dorm_repair 
+		WHERE open_id = #{open_id} 
 	
+	</select>
+	<select id="listDormRepairHistoryInfo" parameterType="pd" resultType="dormRepairEntity" useCache="false">
+		SELECT		
+				DATE_FORMAT(T.create_date,'%Y-%m-%d %H:%i:%s') AS create_date,
+				T.class_a,
+				H.name  AS class_a_name,
+				T.class_b,
+				G.name  AS class_b_name,
+				T.area_a,
+				A.name  AS area_a_name,
+				T.area_b,
+				B.name  AS area_b_name,
+				T.area_f,
+				F.name  AS area_f_name,
+				T.area_r,
+				R.name  AS area_r_name,
+				T.tel,
+				T.remark,
+				T.stat,
+				T.repair_time
+		FROM wh_fault T
+		LEFT JOIN
+		wh_fault_area A
+		ON T.area_a = A.id
+		AND A.type='A'
+		LEFT JOIN
+		wh_fault_area B
+		ON T.area_b = B.id
+		AND B.type='B'
+		LEFT JOIN
+		wh_fault_area F
+		ON T.area_f = F.id
+		AND F.type='F'
+		LEFT JOIN
+		wh_fault_area R
+		ON T.area_r = R.id
+		AND R.type='R'
+		LEFT JOIN
+		wh_fault_class H
+		ON T.class_a = H.id
+		AND H.type='A'
+		LEFT JOIN
+		wh_fault_class G
+		ON T.class_b = G.id
+		AND G.type='B'
+		WHERE T.id IN
+        <foreach item="item" index="index" collection="repairIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>	
+	</select>			
 </mapper>
