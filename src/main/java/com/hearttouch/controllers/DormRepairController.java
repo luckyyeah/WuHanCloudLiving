@@ -1,7 +1,6 @@
 package com.hearttouch.controllers;
 
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +23,7 @@ import com.hearttouch.entity.StudentInfoEntity;
 import com.hearttouch.entity.User;
 import com.hearttouch.service.DormRepairService;
 import com.hearttouch.service.SchoolManageService;
+import com.hearttouch.service.WeixinService;
 import com.hearttouch.util.Const;
 import com.hearttouch.util.GetPinyin;
 import com.hearttouch.util.PageData;
@@ -45,6 +45,9 @@ public class DormRepairController extends BaseController {
     @Resource(name = "dormRepairService")
     private DormRepairService dormRepairService;
 
+    
+    @Resource(name = "weixinService")
+    private WeixinService weixinService;
 
     @RequestMapping(value = "/showIndex")
     public ModelAndView showIndex(Page page) throws Exception {
@@ -460,6 +463,12 @@ public class DormRepairController extends BaseController {
         //生成key
         pd.put("id", get32UUID());
         String school = pd.getString("school");
+        List<DormRepairEntity> listAreaA = dormRepairService.listAreaA(pd);
+        String create_dept =null;
+		if (listAreaA != null && listAreaA.size() > 0) {
+			create_dept = listAreaA.get(0).getCreate_dept();
+		}
+		pd.put("create_dept", create_dept);
         // 添加报修记录
         dormRepairService.addRepairInfo(pd);
         HttpServletRequest request = this.getRequest();
@@ -510,18 +519,22 @@ public class DormRepairController extends BaseController {
            user.setName("yeah");*/
 			// 获取access_token 开始
             String requestUrl="";
+            String access_token = "";
+            JSONObject jsonObject = null;
             if(Const.FROM_SITE_XINCD.equals(fromSite)){
 				requestUrl = Const.DIRECT_ACCESS_TOKEN_URL.replace("APPID",
 						Const.APPID_XINCD);
 				requestUrl = requestUrl.replace("APPSECRET", Const.APP_SECRET_XINCD);	
+				access_token = weixinService.getAccessToken();
             } else {
 				requestUrl = Const.DIRECT_ACCESS_TOKEN_URL.replace("APPID",
 						Const.APPID);
 				requestUrl = requestUrl.replace("APPSECRET", Const.APP_SECRET);
+				jsonObject = WeixinController.httpRequst(requestUrl,
+						"GET", null);
+				access_token = jsonObject.getString("access_token");
+
             }
-			JSONObject jsonObject = WeixinController.httpRequst(requestUrl,
-					"GET", null);
-			String access_token = jsonObject.getString("access_token");
 			requestUrl = Const.POST_TEMPLETE_MESSAGE_URL.replace(
 					"ACCESS_TOKEN", access_token);
 			//设置消息内容

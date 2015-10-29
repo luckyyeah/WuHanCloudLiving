@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GlobalConfigMapper">
+    <select id="select" parameterType="string" resultMap="globalConfig">
+        select config_id, `key`, `value`, add_time, update_time
+        from global_config
+        where `key`=#{key}
+    </select>
+
+    <update id="update" parameterType="map">
+        update global_config set `value`=#{value} where `key`=#{key}
+    </update>
+
+    <insert id="insert" parameterType="map">
+        insert into global_config(`key`, `value`)
+        values(#{key}, #{value})
+    </insert>
+
+    <resultMap id="globalConfig" type="com.xincd.venus.entity.GlobalConfig">
+        <id property="configId" column="config_id" />
+        <result property="key" column="key" />
+        <result property="value" column="value" />
+        <result property="addTime" column="add_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+</mapper>
