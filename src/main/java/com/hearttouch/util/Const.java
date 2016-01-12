@@ -79,6 +79,26 @@ public class Const {
 	public final static  String SNSAPI_USERINFO_REDIRECT_URI="http%3A%2F%2Fcms.xincdmedia.com%3A8080%2FWuHanCloudLiving%2FaddStudentInfo";
 	public final static  String SNSAPI_BASE_REDIRECT_URI="http%3A%2F%2Fcms.xincdmedia.com%3A8080%2FWuHanCloudLiving%2FshowIndex";
 	public final static  String FROM_SITE_XINCD="1";
-	
+    public static final String WX_WELCOME_WORDS = "欢迎加入心触动";
+
+    public static final String WX_RAW_ID = "gh_a0041aff8c2a";
+
+    public static final String WX_APP_ID = "wx47614a7fc7cd9c94";
+
+    public static final String WX_APP_SECRET = "c1c4ebfe2281191d79e1a15f26d34ee8";
+
+    public static final String WX_TOKEN = "hjduantest";
+
+    public static final String WX_PARTNER_ID = "1230879602";
+
+    public static final String WX_PAY_NOTIFY_URL = "http://venus.hjduan.com/order/wx_pay_feedback/";
+
+    public static final String WX_PARTNER_KEY = "1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik9";
+
+    public static final String WX_PAY_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+    public static final String WX_RED_PACK_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+
+    public static final String WX_PAY_CART_FILE = "/usr/local/tomcat7/weixin/apiclient_cert.p12";
 }
 
