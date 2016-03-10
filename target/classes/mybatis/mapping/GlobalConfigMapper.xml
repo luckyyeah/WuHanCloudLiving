@@ -18,7 +18,7 @@
         values(#{key}, #{value})
     </insert>
 
-    <resultMap id="globalConfig" type="com.xincd.venus.entity.GlobalConfig">
+    <resultMap id="globalConfig" type="com.hearttouch.entity.GlobalConfig">
         <id property="configId" column="config_id" />
         <result property="key" column="key" />
         <result property="value" column="value" />
